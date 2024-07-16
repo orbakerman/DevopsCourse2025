@@ -1,1 +1,1 @@
-# nitzanim-ex
+# devopscourse -final workshop
