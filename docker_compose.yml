@@ -1,0 +1,31 @@
+version: '3.8'
+
+networks:
+  drupal:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_DB: drupal
+      POSTGRES_USER: drupaluser
+      POSTGRES_PASSWORD: drupalpass
+    networks:
+      - drupal
+
+  drupal:
+    image: drupal:9-apache
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    environment:
+      DRUPAL_DB_HOST: postgres
+      DRUPAL_DB_USER: drupaluser
+      DRUPAL_DB_PASSWORD: drupalpass
+      DRUPAL_DB_NAME: drupal
+    networks:
+      - drupal
+
